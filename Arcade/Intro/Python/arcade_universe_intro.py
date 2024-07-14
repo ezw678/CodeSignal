@@ -1,4 +1,3 @@
-from hypothesis import given, strategies as st
 import re
 import numpy as np
 from collections import Counter
@@ -24,6 +23,7 @@ Example
 
 For year = 1905, the output should be
     solution(year) = 20;
+
 For year = 1700, the output should be
     solution(year) = 17."""
 
@@ -43,8 +43,10 @@ Example
 
 For inputString = "aabaa", the output should be
     solution(inputString) = true;
+
 For inputString = "abac", the output should be
     solution(inputString) = false;
+
 For inputString = "a", the output should be
     solution(inputString) = true."""
 
@@ -89,6 +91,7 @@ Example
 
 For n = 2, the output should be
     solution(n) = 5;
+
 For n = 3, the output should be
     solution(n) = 13. """
 
@@ -353,6 +356,7 @@ For inputString = "foo(bar)baz(blim)", the output should be
 
 For inputString = "foo(bar(baz))blim", the output should be
     solution(inputString) = "foobazrabblim".
+
 Because "foo(bar(baz))blim" becomes "foo(barzab)blim" and then "foobazrabblim"."""
 
 
@@ -753,7 +757,8 @@ matrix = [[true, false, false],
 the output should be
     solution(matrix) = [[1, 2, 1],
                         [2, 1, 1],
-                        [1, 1, 1]]"""
+                        [1, 1, 1]]
+"""
 
 
 def mine_sweeper_2(matrix):
@@ -841,6 +846,7 @@ def array_replace_2(inputArray, elemToReplace, substitutionElem):
 Example
 For n = 248622, the output should be
     solution(n) = true;
+
 For n = 642386, the output should be
     solution(n) = false.
 """
@@ -1000,9 +1006,9 @@ The lowest possible value is when x = 4, so the answer is 4.
 
 For a = [2, 3], the output should be 
     solution(a) = 2.
-
 for x = 2, the value will be abs(2 - 2) + abs(3 - 2) = 1.
 for x = 3, the value will be abs(2 - 3) + abs(3 - 3) = 1.
+
 Because there is a tie, the smallest x between x = 2 and x = 3 is the answer."""
 
 
@@ -1130,8 +1136,10 @@ def extract_each_kth_3(inputArray, k):
 Example
 For inputString = "var_1__Int", the output should be
     solution(inputString) = '1';
+
 For inputString = "q2q-q", the output should be
     solution(inputString) = '2';
+
 For inputString = "0ss", the output should be
     solution(inputString) = '0'."""
 
@@ -1295,11 +1303,15 @@ Example
 
 For n = 5, the output should be
     solution(n) = 0;
+
 For n = 100, the output should be
     solution(n) = 1.
+
 1 + 0 + 0 = 1.
+
 For n = 91, the output should be
     solution(n) = 2.
+
 9 + 1 = 10 -> 1 + 0 = 1."""
 
 
@@ -1706,7 +1718,6 @@ the output should be
     solution(matrix) = 6.
 
 Here are all 6 different 2 × 2 squares:
-
 [1 2
  2 2]
 [2 1
@@ -1955,5 +1966,3 @@ def verify(nums: list[int]):
         return False
 
     return True
-
-

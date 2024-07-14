@@ -1,0 +1,14 @@
+# ignore all class files
+*.class
+
+src/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class
+
+.vscode
+.pytest_cache
+.hypothesis
+
+temp?.py
+

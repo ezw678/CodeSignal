@@ -3,6 +3,7 @@ import re
 import numpy as np
 from collections import Counter
 
+
 """Write a function that returns the sum of two numbers.
 
 Example
@@ -34,11 +35,6 @@ def find_century(year):
         return year // 100
     else:
         return year // 100 + 1
-
-
-def century_from_year(year):
-    # // -> Floor division - division that results into whole number adjusted to the left in the number line. Example: 15//4 = 3
-    return 1 + (year - 1) // 100
 
 
 """Given the string, check if it is a palindrome.
@@ -160,7 +156,6 @@ You can remove 3 from the array to get the strictly increasing sequence
 sequence [1, 3]."""
 
 
-# my solution is ugly
 def almost_increasing_sequenece(sequence):
     if (ln := len(sequence)) == 1:
         return True
@@ -215,7 +210,7 @@ for bots (not just the room directly beneath it). Thus, the answer is 1 +
 1 + 1 + 5 + 1 = 9."""
 
 
-def matrix_elements_sum(matrix):
+def matrix_elements_sum_1(matrix):
     sm = 0
     for i in range(len(matrix) - 1):
         for j in range(len(matrix[0])):
@@ -229,25 +224,9 @@ def matrix_elements_sum(matrix):
 
 
 def matrix_elements_sum_2(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-    sm = 0
-    for i in range(rows - 1):
-        for j in range(cols):
-            sm += matrix[i][j]
-            if matrix[i][j] == 0:
-                matrix[i + 1][j] = 0
-
-    sm += sum(matrix[rows - 1])
-
-    return sm
-
-
-def matrix_elements_sum_3(matrix):
     arr = np.array(matrix)
     rows = len(arr)
     cols = len(arr[0])
-    sm = 0
     for i in range(rows - 1):
         for j in range(cols):
             if arr[i][j] == 0:
@@ -284,10 +263,8 @@ For s1 = "aabcc" and s2 = "adcaa", the output should be
 
 Strings have 3 common characters - 2 "a"s and 1 "c"."""
 
-from collections import Counter
 
-
-def common_charactoer_count(s1, s2):
+def common_charactoer_count_1(s1, s2):
     counter1 = Counter(s1)
     counter2 = Counter(s2)
 
@@ -300,36 +277,9 @@ def common_charactoer_count(s1, s2):
 
 
 def common_charactoer_count_2(s1, s2):
-    counter1 = Counter(s1)
-    counter2 = Counter(s2)
-
-    count = 0
-    char_set = set(s1)
-    for c in char_set:
-        if c in counter2.keys():
-            count += min(counter1[c], counter2[c])
-
-    return count
-
-
-def common_charactoer_count_3(s1, s2):
-    counter1 = Counter(s1)
-    counter2 = Counter(s2)
-
-    char_set1 = set(s1)
-    char_set2 = set(s2)
-    intersect = char_set1 & char_set2
-    count = 0
-    for c in intersect:
-        count += min(counter1[c], counter2[c])
-
-    return count
-
-
-def common_charactoer_count_4(s1, s2):
-    char_set1 = set(s1)
-    char_set2 = set(s2)
-    intersect = char_set1 & char_set2
+    set1 = set(s1)
+    set2 = set(s2)
+    intersect = set1 & set2
     count = 0
     for c in intersect:
         count += min(s1.count(c), s2.count(c))
@@ -347,11 +297,9 @@ Example
 
 For n = 1230, the output should be
     solution(n) = true;
+
 For n = 239017, the output should be
     solution(n) = false."""
-
-# number = 12345
-# numList = [int(digit) for digit in str(number)]
 
 
 def is_lucky(n):
@@ -396,10 +344,13 @@ Example
 
 For inputString = "(bar)", the output should be
     solution(inputString) = "rab";
+
 For inputString = "foo(bar)baz", the output should be
     solution(inputString) = "foorabbaz";
+
 For inputString = "foo(bar)baz(blim)", the output should be
     solution(inputString) = "foorabbazmilb";
+
 For inputString = "foo(bar(baz))blim", the output should be
     solution(inputString) = "foobazrabblim".
 Because "foo(bar(baz))blim" becomes "foo(barzab)blim" and then "foobazrabblim"."""
@@ -432,7 +383,7 @@ after the division is complete.
 Example
 
 For a = [50, 60, 60, 45, 70], the output should be
-solution(a) = [180, 105]."""
+    solution(a) = [180, 105]."""
 
 
 def alternating_sums_1(a):
@@ -458,36 +409,24 @@ def alternating_sums_2(a):
 Example
 
 For
-
 picture = ["abc",
            "ded"]
 the output should be
     solution(picture) = ["*****",
                          "*abc*",
                          "*ded*",
-                         "*****"]"""
+                         "*****"]
+"""
 
 
-# solution according to wrong description of list as matrix
 def add_border(picture):
-    rows = len(picture) + 2
-    cols = len(picture[0]) + 2
-
-    new_pic = [["*" for i in range(cols)] for j in range(rows)]
-    for i in range(1, rows - 1):
-        for j in range(1, cols - 1):
-            new_pic[i][j] = picture[i - 1][j - 1]
-
-    return new_pic
-
-
-def add_border_1(picture):
     ln = len(picture[0]) + 2
     top_bottome = "*" * ln
     lst = [top_bottome]
     picture = ["*" + s + "*" for s in picture]
     lst.extend(picture)
     lst.append(top_bottome)
+
     return lst
 
 
@@ -539,7 +478,7 @@ moves required to obtain a strictly increasing sequence from the input.
 Example
 
 For inputArray = [1, 1, 1], the output should be
-solution(inputArray) = 3."""
+    solution(inputArray) = 3."""
 
 
 def array_change(inputArray):
@@ -574,19 +513,6 @@ def palindrome_rearranging(inputString):
                 one_single = True
 
     return True
-
-
-# this code is not correct, b/c the single appearance letters will be repeatly handled
-# def palindrome_rearranging(inputString):
-# single_count = 0
-# for c in inputString:
-#     if inputString.count(c)%2!=0:
-#         single_count += 1
-
-#     if single_count > 1:
-#         return False
-
-# return True
 
 
 """Call two arms equally strong if the heaviest weights they each are able 
@@ -635,11 +561,12 @@ between any two of its adjacent elements.
 Example
 
 For inputArray = [2, 4, 1, 0], the output should be
-solution(inputArray) = 3."""
+    solution(inputArray) = 3."""
 
 
-def array_max_adj_dif(inputArray):
+def array_max_adj_dif_1(inputArray):
     dif = 0
+
     for i in range(len(inputArray) - 1):
         dif = max(dif, abs(inputArray[i] - inputArray[i + 1]))
 
@@ -677,7 +604,7 @@ For inputString = ".254.255.0", the output should be
 There is no first number."""
 
 
-def is_IPv4(inputString):
+def is_IPv4_1(inputString):
     lst = inputString.split(".")
     if len(lst) != 4:
         return False
@@ -694,7 +621,7 @@ def is_IPv4(inputString):
     return True
 
 
-def is_IPv4(inputString):
+def is_IPv4_2(inputString):
     return (
         re.match(
             r"^((2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9][0-9]|[0-9])[.]){3}(2[0-4][0-9]|25[0-5]|1[0-9][0-9]|[1-9][0-9]|[0-9])$",
@@ -721,76 +648,19 @@ For inputArray = [5, 3, 6, 7, 9], the output should be
 Check out the image below for better understanding:"""
 
 
-def avoid_obstacles_online(inputArray):
-    for i in range(2, 40):
-        non_divisible = True
-        for j in range(0, len(inputArray)):
-            if int(inputArray[j]) % i == 0:
-                non_divisible = False
-                break
-
-        if non_divisible:
-            return i
-
-
 def avoid_obstacles(inputArray):
-    # if not inputArray:
-    #     return 2
+    for i in range(2, max(inputArray) + 2):
+        hit_obstacle = False
 
-    for i in range(
-        2, max(inputArray) + 2
-    ):  # +2 or more to ensure covering the last one
-        # divisible means if you use that i (steps) to jump, you will hit one of nbrs in array
-        # maybe one jump or a few jumps, you will hit that number, so the i no good
-        divisible = False
-
-        for j in range(0, len(inputArray)):
+        for j in range(0, (ln := len(inputArray))):
             if inputArray[j] % i == 0:
-                divisible = True
+                hit_obstacle = True
                 break
 
-        if not divisible:
+        if not hit_obstacle:
             return i
 
-    return len(inputArray) + 1
-
-
-def avoid_obstacles_2(inputArray):
-    if not inputArray:
-        return 2
-
-    def is_not_divisible(x):
-        for n in inputArray:
-            print("n in inputArray: ", n)
-            if n % x == 0:
-                return False
-
-        return True
-
-    return [i for i in range(2, max(inputArray) + 2) if is_not_divisible(i)][0]
-
-
-def avoid_obstacles_gpt(ary):
-    def is_not_divisible(x):
-        for n in ary:
-            if n % x == 0:
-                return False
-        return True
-
-    max_val = max(ary)
-    for jump_length in range(2, max_val + 2):
-        print(f"Testing jump length: {jump_length}")
-        if is_not_divisible(jump_length):
-            print(f"Found valid jump length: {jump_length}")
-            return jump_length
-
-    return -1
-
-
-# Hypothesis test with timeout decorator
-@given(st.lists(st.integers(min_value=1, max_value=10), min_size=1, max_size=10))
-def test_js_avoid_obstacles(nums: list[int]):
-    assert avoid_obstacles(nums) == avoid_obstacles_2(nums)
+    return ln + 1
 
 
 """Last night you partied a little too hard. Now there's a black and white 
@@ -808,7 +678,6 @@ Return the blurred image as an integer, with the fractions rounded down.
 Example
 
 For
-
 image = [[1, 1, 1], 
          [1, 7, 1], 
          [1, 1, 1]]
@@ -820,7 +689,6 @@ To get the value of the middle pixel in the input 3 × 3 square: (1 + 1 + 1 + 1
 from the final result.
 
 For
-
 image = [[7, 4, 0, 1], 
          [5, 6, 2, 2], 
          [6, 10, 7, 8], 
@@ -836,12 +704,11 @@ obtained the same way, then the surrounding integers are cropped from the
 final result."""
 
 
-# 23 under island of knowledge
 def box_blur_1(image):
     rows = len(image)
     cols = len(image[0])
 
-    res = [[0 for i in range(cols - 2)] for j in range(rows - 2)]
+    res = [[0 for _ in range(cols - 2)] for _ in range(rows - 2)]
 
     for i in range(rows - 2):
         for j in range(cols - 2):
@@ -855,9 +722,6 @@ def box_blur_1(image):
     return res
 
 
-import numpy as np
-
-
 def box_blur_2(image):
     image = np.array(image)
 
@@ -869,7 +733,6 @@ def box_blur_2(image):
     for i in range(rows - 2):
         for j in range(cols - 2):
             sub = image[i : i + 3, j : j + 3]
-
             res[i][j] = np.sum(sub) // 9
 
     return res
@@ -891,78 +754,6 @@ the output should be
     solution(matrix) = [[1, 2, 1],
                         [2, 1, 1],
                         [1, 1, 1]]"""
-
-
-def mine_sweeper(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-
-    # new_matrix = matrix.copy()     #don't use matrix.copy(), the copy will affect original
-    new_matrix = [[0 for j in range(cols)] for i in range(rows)]
-
-    for i in range(rows):
-        for j in range(cols):
-            sm = 0
-            if i == 0 and j == 0:
-                sm += 1 if matrix[i][j + 1] else 0
-                sm += 1 if matrix[i + 1][j] else 0
-                sm += 1 if matrix[i + 1][j + 1] else 0
-            elif i == 0 and j == cols - 1:
-                print(i, j)
-                print(matrix[i][j - 1])
-                print(sm)
-                if matrix[i][j - 1]:
-                    sm += 1
-                print(sm)
-                sm += 1 if matrix[i + 1][j - 1] else 0
-                print(sm)
-                sm += 1 if matrix[i + 1][j] else 0
-                print(sm)
-            elif i == rows - 1 and j == 0:
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i][j + 1] else 0
-                sm += 1 if matrix[i - 1][j + 1] else 0
-            elif i == rows - 1 and j == cols - 1:
-                sm += 1 if matrix[i][j - 1] else 0
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i - 1][j - 1] else 0
-            elif i == 0 and j not in (0, cols - 1):  # 4 sides
-                sm += 1 if matrix[i][j - 1] else 0
-                sm += 1 if matrix[i][j + 1] else 0
-                sm += 1 if matrix[i + 1][j - 1] else 0
-                sm += 1 if matrix[i + 1][j + 1] else 0
-                sm += 1 if matrix[i + 1][j] else 0
-            elif j == 0 and i not in (0, rows - 1):  # left
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i + 1][j] else 0
-                sm += 1 if matrix[i - 1][j + 1] else 0
-                sm += 1 if matrix[i][j + 1] else 0
-                sm += 1 if matrix[i + 1][j + 1] else 0
-            elif i not in (0, rows - 1) and j == cols - 1:  # right
-                sm += 1 if matrix[i - 1][j - 1] else 0
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i][j - 1] else 0
-                sm += 1 if matrix[i + 1][j - 1] else 0
-                sm += 1 if matrix[i + 1][j] else 0
-            elif i == rows - 1 and j not in (0, cols - 1):  # bottom
-                sm += 1 if matrix[i - 1][j - 1] else 0
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i - 1][j + 1] else 0
-                sm += 1 if matrix[i][j - 1] else 0
-                sm += 1 if matrix[i][j + 1] else 0
-            else:
-                sm += 1 if matrix[i - 1][j - 1] else 0  # middle
-                sm += 1 if matrix[i - 1][j] else 0
-                sm += 1 if matrix[i - 1][j + 1] else 0
-                sm += 1 if matrix[i][j - 1] else 0
-                sm += 1 if matrix[i][j + 1] else 0
-                sm += 1 if matrix[i + 1][j - 1] else 0
-                sm += 1 if matrix[i + 1][j] else 0
-                sm += 1 if matrix[i + 1][j + 1] else 0
-
-            new_matrix[i][j] = sm
-
-    return new_matrix
 
 
 def mine_sweeper_2(matrix):
@@ -1055,7 +846,7 @@ For n = 642386, the output should be
 """
 
 
-def even_digits_only(n):
+def even_digits_only_1(n):
     for d in list(str(n)):
         if int(d) % 2 != 0:
             return False
@@ -1064,10 +855,6 @@ def even_digits_only(n):
 
 
 def even_digits_only_2(n):
-    return not len([0 for d in list(str(n)) if int(d) % 2 != 0])
-
-
-def even_digits_only_3(n):
     return len([0 for d in list(str(n)) if int(d) % 2 != 0]) == 0
 
 
@@ -1118,31 +905,6 @@ For cell1 = "A1" and cell2 = "H3", the output should be
 """
 
 
-def chessboard_cell_color(cell1, cell2):
-    if cell1 == cell2:
-        return True
-
-    dct = {"A": 1, "B": 2, "C": 3, "D": 4, "E": 5, "F": 6, "G": 7, "H": 8}
-    # or
-    # ltrs = ["A", "B", "C", "D", "E", "F", "G", "H"]
-    # nbrs = [1,2,3,4,5,6,7,8]
-    # dct = {ltr: nbr for ltr, nbr in zip(ltrs, nbrs)}
-
-    indice1 = [dct[list(cell1)[0]], int(list(cell1)[1])]
-    indice2 = [dct[list(cell2)[0]], int(list(cell2)[1])]
-
-    # chess board dif color characteristics: if both x, y are even or odd, color is black
-    # if x, y one is even, the other is odd, then color is white
-    # before it took me a long time to figure out, i just don't know what to think
-    return (
-        indice1[0] % 2 == indice1[1] % 2
-        and indice2[0] % 2 == indice2[1] % 2
-        or indice1[0] % 2 != indice1[1] % 2
-        and indice2[0] % 2 != indice2[1] % 2
-    )
-
-
-# just a cleanup from the prev one
 def cellboard_cell_color_2(cell1, cell2):
     if cell1 == cell2:
         return True
@@ -1176,7 +938,6 @@ For n = 10 and firstNumber = 2, the output should be
 """
 
 
-# wow. solved like it's nothing. just a few mins ago, i had no clue. still remember had a hard time last year doing it in java
 def circle_numbers(n, firstNumber):
     half = n // 2
     return firstNumber + half if firstNumber < half else firstNumber - half
@@ -1217,8 +978,7 @@ def deposti_profit(deposit, rate, threshold):
     return yr
 
 
-"""
-Given a sorted array of integers a, your task is to determine which element 
+"""Given a sorted array of integers a, your task is to determine which element 
 of a is closest to all other values of a. In other words, find the element 
 x in a, which minimizes the following sum:
 
@@ -1243,8 +1003,7 @@ For a = [2, 3], the output should be
 
 for x = 2, the value will be abs(2 - 2) + abs(3 - 2) = 1.
 for x = 3, the value will be abs(2 - 3) + abs(3 - 3) = 1.
-Because there is a tie, the smallest x between x = 2 and x = 3 is the answer.
-"""
+Because there is a tie, the smallest x between x = 2 and x = 3 is the answer."""
 
 
 def absolute_values_sum_minimization(a):
@@ -1266,8 +1025,7 @@ def absolute_values_sum_minimization(a):
     return elem
 
 
-"""
-Given an array of equal-length strings, you'd like to know if it's possible 
+"""Given an array of equal-length strings, you'd like to know if it's possible 
 to rearrange the order of the elements in such a way that each consecutive 
 pair of strings differ by exactly one character. Return true if it's possible, 
 and false if not.
@@ -1297,18 +1055,13 @@ For inputArray = ["ab", "bb", "aa"], the output should be
 
 It's possible to arrange these strings in a way that each consecutive pair 
 of strings differ by 1 character (eg: "aa", "ab", "bb" or "bb", "ab", "aa"), 
-so return true.
-"""
+so return true."""
 
 
 def string_rearrangement(inputArray):
     matrix = []
     permute(inputArray, 0, len(inputArray), matrix)
 
-    # for row in matrix:
-    #     print(row)
-
-    # print()
     return compare_strs(matrix)
 
 
@@ -1330,47 +1083,12 @@ def swap_words(lst, l, r):
     return
 
 
-# this version passes all tests
-# abbreviated version passes all tests too
-# if issue (more than 2 difs), immediately discard, if no issue found,
-# then it's an instant success
-# this is better than _2
 def compare_strs(matrix):
     for row in matrix:
         found = True
-        # difs = []
         for i in range(len(row) - 1):
             dif = [a == b for a, b in zip(list(row[i]), list(row[i + 1]))]
             if dif.count(False) != 1:
-                found = False
-                break
-            # else:
-            #     difs.append(dif[:])
-
-        # if found:
-        #     for d in difs:
-        #         if d.count(False)!=1:
-        #             found = False
-        #             break
-
-        if found:  # if no issue found, then those 3 strings are good
-            return True
-
-    return False
-
-
-# this version is much simpler. theorectically a little more inefficient
-# but this version can't pass extensive testing of long lists on code signal
-def compare_strs_2(matrix):
-    for row in matrix:
-        found = True
-        difs = []
-        for i in range(len(row) - 1):
-            dif = [a == b for a, b in zip(list(row[i]), list(row[i + 1]))]
-            difs.append(dif[:])
-
-        for d in difs:
-            if d.count(False) != 1:
                 found = False
                 break
 
@@ -1380,79 +1098,34 @@ def compare_strs_2(matrix):
     return False
 
 
-"""
-Given array of integers, remove each kth element from it.
+"""Given array of integers, remove each kth element from it.
 
 Example
 
 For inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] and k = 3, the output should be
-    solution(inputArray, k) = [1, 2, 4, 5, 7, 8, 10]
-"""
+    solution(inputArray, k) = [1, 2, 4, 5, 7, 8, 10]"""
 
 
-def extract_each_kth(inputArray, k):
+def extract_each_kth_1(inputArray, k):
     new_arr = []
     for idx, v in enumerate(inputArray):
-        if (idx + 1) % k == 0:
-            continue
-        else:
+        if (idx + 1) % k != 0:
             new_arr.append(inputArray[idx])
 
     return new_arr
 
 
-# online
-def extract_each_kth_online(inputArray, k):
-    # ew: array slicing arr[start:end:step]. arr[::2] slicing every other element
-    del inputArray[
-        k - 1 :: k
-    ]  # understand now. k-1 is start, : end is omitted so to end, k is step
+def extract_each_kth_2(inputArray, k):
+    del inputArray[k - 1 :: k]
+
     return inputArray
 
 
-# after reading about del list elements online
-# doesn't work. [k-1:k] will work to replace from k-1 to k, but with ::,
-# it won't work
-# def extract_each_kth_2_2 (inputArray, k):
-#     inputArray[k-1::k] = []     #replacing elements from k-1 to end with k jump
-#     return inputArray
-
-
-# online
 def extract_each_kth_3(inputArray, k):
-    return list(
-        [x for i, x in enumerate(inputArray) if (i + 1) % k != 0]
-    )  # ew change from i%k to (i+1)%k
+    return list([x for i, x in enumerate(inputArray) if (i + 1) % k != 0])
 
 
-# chatgpt and me work together after many trials
-def extract_each_kth_k_plus_1th_2(nums, k):
-    if k == 1:
-        return []
-
-    return [
-        nums[i] for i in range(len(nums)) if i == 0 or (i + 1) % k != 0 and i % k != 0
-    ]
-
-
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]==[1, 2, 4, 5, 7, 8, 10]
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]==[1, 2, 5, 8]
-def extract_each_kth_k_plus_1th(nums, k):
-    n2 = []
-    i = 0
-    while i < len(nums):
-        if (i + 1) % k == 0:
-            i += 2
-            continue
-        else:
-            n2.append(nums[i])
-            i += 1
-
-    return n2
-
-
-"""
-Find the leftmost digit that occurs in a given string.
+"""Find the leftmost digit that occurs in a given string.
 
 Example
 For inputString = "var_1__Int", the output should be
@@ -1460,32 +1133,27 @@ For inputString = "var_1__Int", the output should be
 For inputString = "q2q-q", the output should be
     solution(inputString) = '2';
 For inputString = "0ss", the output should be
-    solution(inputString) = '0'.
-"""
+    solution(inputString) = '0'."""
 
 
 def find_1st_digit(inputString):
     return inputString[re.search(r"\d", inputString).start()]
 
 
-"""
-Given a string, find the number of different characters in it.
+"""Given a string, find the number of different characters in it.
 
 Example
 For s = "cabca", the output should be
     solution(s) = 3.
 
-There are 3 different characters a, b and c.
-"""
+There are 3 different characters a, b and c."""
 
 
-# find dif letters in a string
 def different_symbols_naive(s):
     return len(set(s))
 
 
-"""
-Given array of integers, find the maximal possible sum of some of its k 
+"""Given array of integers, find the maximal possible sum of some of its k 
 consecutive elements.
 
 Example
@@ -1497,40 +1165,21 @@ All possible sums of 2 consecutive elements are:
 3 + 5 = 8;
 5 + 1 = 6;
 1 + 6 = 7.
-Thus, the answer is 8
-"""
+Thus, the answer is 8"""
 
 
-# not efficient enough to pass last test when submitting
-def array_max_consecutive_sum(inputArray, k):
-    mx = 0
-    for i in range(len(inputArray) - k + 1):
-        mx = max(mx, sum(inputArray[i : i + k]))
-
-    return mx
-
-
-# sliding window method. passed!
 def array_max_consecutive_sum_chatgpt(inputArray, k):
-    # if k > (ln := len(inputArray)):
-    #    return 0
-
-    # wow. this works too. so they don't matter
-    if k >= (ln := len(inputArray)):
-        return sum(inputArray)
-
     sub_sum = sum(inputArray[:k])
     max_sum = sub_sum
 
-    for i in range(ln - k):
+    for i in range(len(inputArray) - k):
         sub_sum = sub_sum - inputArray[i] + inputArray[i + k]
         max_sum = max(sub_sum, max_sum)
 
     return max_sum
 
 
-"""
-Caring for a plant can be hard work, but since you tend to it regularly, 
+"""Caring for a plant can be hard work, but since you tend to it regularly, 
 you have a plant that grows consistently. Each day, its height increases 
 by a fixed amount represented by the integer upSpeed. But due to lack of 
 sunlight, the plant decreases in height every night, by an amount represented 
@@ -1557,8 +1206,7 @@ should be
 8	730	720
 9	820	810
 10	910	900
-The plant first reaches a height of 910 on day 10.
-"""
+The plant first reaches a height of 910 on day 10."""
 
 
 def growing_plant(upSpeed, downSpeed, desiredHeight):
@@ -1577,8 +1225,7 @@ def growing_plant(upSpeed, downSpeed, desiredHeight):
     return days - 1
 
 
-"""
-You found two items in a treasure chest! The first item weighs weight1 and 
+"""You found two items in a treasure chest! The first item weighs weight1 and 
 is worth value1, and the second item weighs weight2 and is worth value2. 
 What is the total maximum value of the items you can take with you, assuming 
 that your max weight capacity is maxW and you can't come back for the items 
@@ -1603,8 +1250,7 @@ You're strong enough to take both of the items with you.
 For value1 = 5, weight1 = 3, value2 = 7, weight2 = 4, and maxW = 6, the output should be
     solution(value1, weight1, value2, weight2, maxW) = 7.
 
-You can't take both items, but you can take any of them.
-"""
+You can't take both items, but you can take any of them."""
 
 
 def knapsack_light(value1, weight1, value2, weight2, maxW):
@@ -1627,22 +1273,19 @@ def knapsack_light(value1, weight1, value2, weight2, maxW):
     )
 
 
-"""
-Given a string, output its longest prefix which contains only digits.
+"""Given a string, output its longest prefix which contains only digits.
 
 Example
 
 For inputString = "123aa1", the output should be
-    solution(inputString) = "123".
-"""
+    solution(inputString) = "123"."""
 
 
 def longest_digits_prefix(inputString):
     return inputString[: re.search(r"^\d*", inputString).end()]
 
 
-"""
-Let's define digit degree of some positive integer as the number of times 
+"""Let's define digit degree of some positive integer as the number of times 
 we need to replace this number with the sum of its digits until we get to 
 a one digit number.
 
@@ -1657,8 +1300,7 @@ For n = 100, the output should be
 1 + 0 + 0 = 1.
 For n = 91, the output should be
     solution(n) = 2.
-9 + 1 = 10 -> 1 + 0 = 1.
-"""
+9 + 1 = 10 -> 1 + 0 = 1."""
 
 
 def digit_degree(n):
@@ -1677,8 +1319,7 @@ def digit_degree(n):
     return count
 
 
-"""
-Given the positions of a white bishop and a black pawn on the standard 
+"""Given the positions of a white bishop and a black pawn on the standard 
 chess board, determine whether the bishop can capture the pawn in one move.
 
 The bishop has no restrictions in distance for each move, but is limited 
@@ -1690,8 +1331,7 @@ For bishop = "a1" and pawn = "c3", the output should be
     solution(bishop, pawn) = true.
 
 For bishop = "h1" and pawn = "h3", the output should be
-    solution(bishop, pawn) = false.
-"""
+    solution(bishop, pawn) = false."""
 
 
 def bishop_and_pawn(bishop, pawn):
@@ -1707,8 +1347,7 @@ def bishop_and_pawn(bishop, pawn):
     )
 
 
-"""
-A string is said to be beautiful if each letter in the string appears 
+"""A string is said to be beautiful if each letter in the string appears 
 at most as many times as the previous letter in the alphabet within the 
 string; ie: b occurs no more times than a; c occurs no more times than 
 b; etc. Note that letter a has no previous letter.
@@ -1733,8 +1372,7 @@ For inputString = "bbc", the output should be
     solution(inputString) = false.
 
 Although there are more bs than cs, this string is not beautiful because 
-there are no as, so therefore there are more bs than as.
-"""
+there are no as, so therefore there are more bs than as."""
 
 
 def is_beautiful_str(inputString):
@@ -1758,8 +1396,7 @@ def is_beautiful_str(inputString):
     return True
 
 
-"""
-An email address such as "John.Smith@example.com" is made up of a local 
+"""An email address such as "John.Smith@example.com" is made up of a local 
 part ("John.Smith"), an "@" symbol, then a domain part ("example.com").
 
 The domain name part of an email address may only consist of letters, 
@@ -1775,23 +1412,20 @@ For address = "prettyandsimple@example.com", the output should be
     solution(address) = "example.com";
 
 For address = "fully-qualified-domain@codesignal.com", the output should be
-    solution(address) = "codesignal.com".
-"""
+    solution(address) = "codesignal.com"."""
 
 
 def find_email_domain(address):
     return address[address.rfind("@") + 1 :]
 
 
-"""
-Given a string, find the shortest possible string which can be achieved 
+"""Given a string, find the shortest possible string which can be achieved 
 by adding characters to the end of initial string to make it a palindrome.
 
 Example
 
 For st = "abcdc", the output should be
-    solution(st) = "abcdcba".
-"""
+    solution(st) = "abcdcba"."""
 
 
 def build_palindrome(st):
@@ -1807,8 +1441,7 @@ def build_palindrome(st):
     return st
 
 
-"""
-Elections are in progress!
+"""Elections are in progress!
 
 Given an array of the numbers of votes given to each of the candidates 
 so far, and an integer k equal to the number of voters who haven't cast 
@@ -1836,8 +1469,7 @@ will thus be [3, 4, 5, 3]).
 The last candidate can't win no matter what (for the same reason as the 
 first candidate).
 Thus, only 2 candidates can win (the second and the third), which is 
-the answer.
-"""
+the answer."""
 
 
 def elections_winners(votes, k):
@@ -1847,9 +1479,9 @@ def elections_winners(votes, k):
     mx = votes[0]
     if k == 0:
         if (cnt := votes.count(mx)) == 1:
-            return 1  # 1 winner
+            return 1
         elif cnt > 1:
-            return 0  # no winner
+            return 0
 
     for c in votes:
         if c + k > mx:
@@ -1858,8 +1490,7 @@ def elections_winners(votes, k):
     return count
 
 
-"""
-A media access control address (MAC address) is a unique identifier 
+"""A media access control address (MAC address) is a unique identifier 
 assigned to network interfaces for communications on the physical 
 network segment.
 
@@ -1879,31 +1510,14 @@ For inputString = "Z1-1B-63-84-45-E6", the output should be
     solution(inputString) = false;
 
 For inputString = "not a MAC-48 address", the output should be
-    solution(inputString) = false.
-"""
+    solution(inputString) = false."""
 
 
-def is_MAC48_address_1(inputString):
-    res = re.search(
-        "^[0-9A-F][0-9A-F]-[0-9A-F][0-9A-F]-[0-9A-F][0-9A-F]-[0-9A-F][0-9A-F]-[0-9A-F][0-9A-F]-[0-9A-F][0-9A-F]$",
-        inputString,
-    )
-    if not res:
-        return False
-
-    return True
-
-
-def is_MAC48_address_2(inputString):
-    return re.search("^([0-9A-F][0-9A-F]-){5}[0-9A-F][0-9A-F]$", inputString) != None
-
-
-def is_MAC48_address_3(inputString):
+def is_MAC48_address(inputString):
     return re.match("^([0-9A-F][0-9A-F]-){5}[0-9A-F][0-9A-F]$", inputString) != None
 
 
-"""
-Determine if the given character is a digit or not.
+"""Determine if the given character is a digit or not.
 
 Example
 
@@ -1911,16 +1525,14 @@ For symbol = '0', the output should be
     solution(symbol) = true;
 
 For symbol = '-', the output should be
-    solution(symbol) = false.
-"""
+    solution(symbol) = false."""
 
 
 def is_digit(symbol):
     return symbol.isdigit()
 
 
-"""
-Given a string, return its encoding defined as follows:
+"""Given a string, return its encoding defined as follows:
 
 First, the string is divided into the least possible number of disjoint 
 substrings consisting of identical characters
@@ -1933,67 +1545,15 @@ and a new string is returned.
 Example
 
 For s = "aabbbc", the output should be
-    solution(s) = "2a3bc".
-"""
+    solution(s) = "2a3bc"."""
 
 
 def line_encoding(s):
-    ln = len(s)
-    temp = ""
-    prev = s[0]
-    count = 0
-    for k, c in enumerate(s):
-        if c == prev:
-            count += 1
-            if k == ln - 1:
-                if count == 1:
-                    temp += prev
-                else:
-                    temp += str(count) + prev
-        else:
-            if count == 1:
-                temp += prev
-            else:
-                temp += str(count) + prev
-            count = 1
-            prev = c
-            if k == ln - 1:
-                temp += c
-
-    return temp
-
-
-def line_encoding_2(s):
     matches = re.finditer(r"(.)\1*", s)
     temp = ""
     for m in matches:
         sub = m.group()
         ln = len(sub)
-        if ln > 1:
-            sub = str(ln) + sub[0]
-        temp += sub
-
-    return temp
-
-
-def line_encoding_3(s):
-    matches = re.finditer(r"(.)\1*", s)
-    temp = ""
-    for m in matches:
-        sub = m.group()
-        sub = str(len(sub)) + sub[0]
-        temp += sub
-
-    return re.sub(r"^1(?=[a-z])|(?<=[a-z])1(?=[a-z])", "", temp)
-
-
-def line_encoding_4(s):
-    matches = re.finditer(r"(.)\1*", s)
-    temp = ""
-    for m in matches:
-        sub = m.group()
-        ln = len(sub)
-        # sub = str(ln if ln>1 else '') + sub[0]
         sub = (str(ln) if ln > 1 else "") + sub[0]
         temp += sub
 
@@ -2001,19 +1561,7 @@ def line_encoding_4(s):
     return temp
 
 
-def line_encoding_5(s):
-    matches = re.finditer(r"(.)\1*", s)
-    temp = ""
-    for m in matches:
-        ln = len(m.group())
-        temp += (str(ln) if ln > 1 else "") + m.group()[0]
-
-    print(s)
-    return temp
-
-
-"""
-Given a position of a knight on the standard chessboard, find the number 
+"""Given a position of a knight on the standard chessboard, find the number 
 of different moves the knight can perform.
 
 The knight can move to a square that is two squares horizontally and one 
@@ -2028,8 +1576,7 @@ For cell = "a1", the output should be
     solution(cell) = 2.
 
 For cell = "c2", the output should be
-    solution(cell) = 6.
-"""
+    solution(cell) = 6."""
 
 
 def chess_knight(cell):
@@ -2067,8 +1614,7 @@ def chess_knight(cell):
     return count
 
 
-"""
-Given some integer, find the maximal number you can obtain by deleting 
+"""Given some integer, find the maximal number you can obtain by deleting 
 exactly one digit of the given number.
 
 Example
@@ -2077,8 +1623,7 @@ For n = 152, the output should be
     solution(n) = 52;
 
 For n = 1001, the output should be
-    solution(n) = 101.
-"""
+    solution(n) = 101."""
 
 
 def delete_digit(n):
@@ -2090,25 +1635,23 @@ def delete_digit(n):
     return mx
 
 
-"""
-Define a word as a sequence of consecutive English letters. Find the 
+"""Define a word as a sequence of consecutive English letters. Find the 
 longest word from the given string.
 
 Example
 
 For text = "Ready, steady, go!", the output should be
-    solution(text) = "steady".
-"""
+    solution(text) = "steady"."""
 
 
 def longest_word(text):
     matches = re.findall(r"\b[a-zA-Z]+\b", text)
     matches.sort(key=lambda s: len(s))
+
     return matches[-1]
 
 
-"""
-Check if the given string is a correct time representation of the 24-hour 
+"""Check if the given string is a correct time representation of the 24-hour 
 clock.
 
 Example
@@ -2120,20 +1663,14 @@ For time = "25:51", the output should be
     solution(time) = false;
 
 For time = "02:76", the output should be
-    solution(time) = false.
-"""
+    solution(time) = false."""
 
 
 def valid_time(time):
-    m = re.search(r"([2][0-3]|[0-1][0-9]):[0-5][0-9]", time)
-    if m:
-        return True
-    else:
-        return False
+    return re.search(r"([2][0-3]|[0-1][0-9]):[0-5][0-9]", time) != None
 
 
-"""
-CodeMaster has just returned from shopping. He scanned the check of the 
+"""CodeMaster has just returned from shopping. He scanned the check of the 
 items he bought and gave the resulting string to Ratiorg to figure out 
 the total number of purchased items. Since Ratiorg is a bot he is 
 definitely going to automate it, so he needs a program that sums up 
@@ -2145,12 +1682,12 @@ appear in the given inputString.
 Example
 
 For inputString = "2 apples, 12 oranges", the output should be
-    solution(inputString) = 14.
-"""
+    solution(inputString) = 14."""
 
 
 def sumup_numbers(inputString):
     matches = re.findall(r"\d+", inputString)
+
     return sum([int(m) for m in matches])
 
 
@@ -2182,128 +1719,10 @@ Here are all 6 different 2 × 2 squares:
  2 3]
 [2 3
  2 1]
-"""
-
-from itertools import chain
+ """
 
 
 def different_squares(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-
-    total = (rows - 2 + 1) * (cols - 2 + 1)
-    new_matrix = [[[0 for _ in range(2)] for _ in range(2)] for _ in range(total)]
-
-    t = -1
-    for i in range(rows - 2 + 1):
-        for j in range(cols - 2 + 1):
-            t += 1
-            for k in range(2):
-                for m in range(2):
-                    new_matrix[t][k][m] = matrix[i + k][j + m]
-
-    m_set = set()
-    for i in range(total):
-        m = str(list(chain.from_iterable(new_matrix[i])))
-        m_set.add(m)
-
-    return len(m_set)
-
-
-# don't need to flatten the matrices. to python interpreter, [] or [[]] looks very flat
-def different_squares_2(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-
-    total = (rows - 2 + 1) * (cols - 2 + 1)
-    new_matrix = [[[0 for _ in range(2)] for _ in range(2)] for _ in range(total)]
-
-    t = -1
-    for i in range(rows - 2 + 1):
-        for j in range(cols - 2 + 1):
-            t += 1
-            for k in range(2):
-                for m in range(2):
-                    new_matrix[t][k][m] = matrix[i + k][j + m]
-
-    m_set = set()
-    for i in range(total):
-        m = str(new_matrix[i])
-
-        m_set.add(m)
-
-    return len(m_set)
-
-    # dct = {}
-
-    # for i in range(total):
-    #     m = str(list(chain.from_iterable(new_matrix[i])))
-    #     if m in dct.keys():
-    #         dct[m] = dct[m] + 1
-    #     else:
-    #         dct[m] = 1
-
-    # return len(dct.keys())
-
-
-def different_squares_3(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-    total = (rows - 2 + 1) * (cols - 2 + 1)
-    new_matrix = [[[0 for _ in range(2)] for _ in range(2)] for _ in range(total)]
-
-    t = -1
-    for i in range(rows - 2 + 1):
-        for j in range(cols - 2 + 1):
-            t += 1
-            for k in range(2):
-                for m in range(2):
-                    new_matrix[t][k][m] = matrix[i + k][j + m]
-
-    m_set = set()
-    for m in new_matrix:
-        s = str(m)
-        m_set.add(s)
-
-    return len(m_set)
-
-
-def different_squares_4(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-    total = (rows - 2 + 1) * (cols - 2 + 1)
-    new_matrix = [[[0 for _ in range(2)] for _ in range(2)] for _ in range(total)]
-
-    t = -1
-    for i in range(rows - 2 + 1):
-        for j in range(cols - 2 + 1):
-            t += 1
-            for k in range(2):
-                for m in range(2):
-                    new_matrix[t][k][m] = matrix[i + k][j + m]
-
-    return len(set([str(m) for m in new_matrix]))
-
-
-def different_squares_5(matrix):
-    rows = len(matrix)
-    cols = len(matrix[0])
-    #    total = (rows-2+1)*(cols-2+1)
-
-    m_set = set()
-    for i in range(rows - 2 + 1):
-        for j in range(cols - 2 + 1):
-            sub = [[0 for _ in range(2)] for _ in range(2)]
-            for k in range(2):
-                for m in range(2):
-                    sub[k][m] = matrix[i + k][j + m]
-
-            m_set.add(str(sub))
-
-    return len(m_set)
-
-
-def different_squares_6(matrix):
     rows = len(matrix)
     cols = len(matrix[0])
     arr = np.array(matrix)
@@ -2311,17 +1730,13 @@ def different_squares_6(matrix):
     m_set = set()
     for i in range(rows - 2 + 1):
         for j in range(cols - 2 + 1):
-            sub = arr[
-                i : i + 2, j : j + 2
-            ]  # using slicing numpy array to extract subarrays
-
+            sub = arr[i : i + 2, j : j + 2]
             m_set.add(str(sub))
 
     return len(m_set)
 
 
-"""
-Given an integer product, find the smallest positive (i.e. greater than 
+"""Given an integer product, find the smallest positive (i.e. greater than 
 0) integer the product of whose digits is equal to product. If there 
 is no such integer, return -1 instead.
 
@@ -2331,32 +1746,7 @@ For product = 12, the output should be
     solution(product) = 26;
 
 For product = 19, the output should be
-    solution(product) = -1.
-"""
-
-
-def digitsProduct_online(product):
-    answerDigits = []
-    answer = 0
-
-    if product == 0:
-        return 10
-
-    if product == 1:
-        return 1
-
-    for divisor in range(9, 1, -1):
-        while product % divisor == 0:
-            product /= divisor
-            answerDigits.append(divisor)
-
-    if product > 1:
-        return -1
-
-    for i in range(len(answerDigits) - 1, -1, -1):
-        answer = 10 * answer + answerDigits[i]
-
-    return answer
+    solution(product) = -1."""
 
 
 def digits_product(product):
@@ -2375,34 +1765,8 @@ def digits_product(product):
     if product != 1:
         return -1
 
-    temp = 0
-    for i in range(len(lst) - 1, -1, -1):
-        temp = temp * 10 + lst[i]
-
-    return temp
-
-
-def digits_product_2(product):
-    if product == 0:
-        return 10
-
-    if product == 1:
-        return 1
-
-    lst = []
-    for i in range(9, 1, -1):  # 9 b/c only have to check digits
-        while (
-            product % i == 0
-        ):  # this is important b/c same factor could appears more than one time. so don't use if
-            lst.append(i)
-            product /= i
-
-    if product != 1:
-        return -1
-
     lst.reverse()
     return int("".join([str(n) for n in lst]))
-    # return int(''.join(str(n) for n in (lst[::-1])))
 
 
 """You are given an array of strings names representing filenames. 
@@ -2430,19 +1794,6 @@ update names[4] = "doc(2)"
 """
 
 
-# after looking at online solution. with my improvements
-def file_naming(names):
-    for i in range(1, len(names)):
-        if names[i] in names[:i]:
-            n = 1
-            while f"{names[i]}({n})" in names[:i]:
-                n += 1
-            names[i] = f"{names[i]}({n})"
-
-    return names
-
-
-# walrus operator! nice
 def file_naming_2(names):
     for i in range(1, len(names)):
         if (name := names[i]) in names[:i]:
@@ -2471,11 +1822,10 @@ should be
 
 The first 8 characters of the code are 01001000, which is 72 in the binary 
 numeral system. 72 stands for H in the ASCII-table, so the first letter 
-is H. Other letters can be obtained in the same manner.
-"""
+is H. Other letters can be obtained in the same manner."""
 
 
-def message_from_binary_code(code):
+def message_from_binary_code_1(code):
     ln = len(code) // 8
     temp = ""
     for i in range(ln):
@@ -2483,9 +1833,6 @@ def message_from_binary_code(code):
         temp += ch
 
     return temp
-
-
-import re
 
 
 def message_from_binary_code_2(code):
@@ -2497,17 +1844,16 @@ def message_from_binary_code_2(code):
     return temp
 
 
-"""
-Construct a square matrix with a size N × N containing integers from 
+"""Construct a square matrix with a size N × N containing integers from 
 1 to N * N in a spiral order, starting from top-left and in clockwise 
 direction.
 
 Example
 
 For n = 3, the output should be
-solution(n) = [[1, 2, 3],
-               [8, 9, 4],
-               [7, 6, 5]]
+    solution(n) = [[1, 2, 3],
+                   [8, 9, 4],
+                   [7, 6, 5]]
 """
 
 
@@ -2545,8 +1891,7 @@ def spiral_numbers(n):
     return matrix
 
 
-"""
-Sudoku is a number-placement puzzle. The objective is to fill a 9 × 9 
+"""Sudoku is a number-placement puzzle. The objective is to fill a 9 × 9 
 grid with digits so that each column, each row, and each of the nine 
 3 × 3 sub-grids that compose the grid contains all of the digits from 
 1 to 9.
@@ -2583,44 +1928,7 @@ the output should be
     solution(grid) = false.
 
 The output should be false: each of the nine 3 × 3 sub-grids should 
-contain all of the digits from 1 to 9.
-"""
-
-
-def Sudoku(grid):
-    digit_sm = sum([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    for i in range(0, 9, 3):
-        for j in range(0, 9, 3):
-            sm = 0
-            lst: list[int] = []
-            for k in range(3):
-                for m in range(3):
-                    cell_val = grid[i + k][j + m]
-                    sm += cell_val
-                    lst.append(cell_val)
-
-            if sm != digit_sm:
-                return False
-
-            if len(list(set(lst))) != len(lst):
-                return False
-
-    for row in grid:
-        if sum(row) != digit_sm:
-            return False
-
-    for j in range(9):
-        col_sm = 0
-        for i in range(9):
-            col_sm += grid[i][j]
-
-        if col_sm != digit_sm:
-            return False
-
-    return True
-
-
-import numpy as np
+contain all of the digits from 1 to 9."""
 
 
 def Sudokus_2(grid):
@@ -2649,101 +1957,3 @@ def verify(nums: list[int]):
     return True
 
 
-def main():
-    grid = [
-        [1, 3, 2, 5, 4, 6, 9, 8, 7],
-        [4, 6, 5, 8, 7, 9, 3, 2, 1],
-        [7, 9, 8, 2, 1, 3, 6, 5, 4],
-        [9, 2, 1, 4, 3, 5, 8, 7, 6],
-        [3, 5, 4, 7, 6, 8, 2, 1, 9],
-        [6, 8, 7, 1, 9, 2, 5, 4, 3],
-        [5, 7, 6, 9, 8, 1, 4, 3, 2],
-        [2, 4, 3, 6, 5, 7, 1, 9, 8],
-        [8, 1, 9, 3, 2, 4, 7, 6, 5],
-    ]
-
-    print(Sudokus_2(grid))
-
-    # names = ["doc", "doc", "image", "doc(1)", "doc"]
-    # print(file_naming_2(names))
-    # ["doc", "doc(1)", "image", "doc(1)(1)", "doc(2)"
-
-    # print(is_beautiful_str('bbbaacdafe'))
-    # print(is_beautiful_str('zaa'))
-    # s = "aaabbddac"
-    # matches = re.findall(r'(.)\1*',s)
-    # for match in matches:
-    #     print (match)
-
-    # s = "faaabbddac"
-    # print(line_encoding_5(s))
-
-    # matrix = [[1, 2, 1],
-    #       [2, 2, 2],
-    #       [2, 2, 2],
-    #       [1, 2, 3],
-    #       [2, 2, 1]]
-
-    # matrix = [[9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9]]
-
-    # matrix = [[9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,9],
-    #     [9,9,9,9,1]]
-    # 2
-
-    # matrix = [
-    #     [9, 9, 9, 9, 9],
-    #     [9, 9, 9, 9, 9],
-    #     [9, 9, 9, 9, 9],
-    #     [9, 9, 9, 9, 9],
-    #     [9, 9, 9, 9, 9],
-    #     [2, 9, 9, 9, 1],
-    # ]
-    # # 3
-
-    # # print(different_squares_4(matrix))
-    # print(different_squares_6(matrix))
-
-    # lst = [m.group()[0] for m in matches]
-    # print(lst)
-
-    # obs = [5, 3, 6, 7, 9]
-    # obs = [5, 8, 9, 13, 14]
-    # obs = [5]
-    # obs = [5, 6, 7, 8, 9]
-    # print(avoid_obstacles(obs))
-    # print(avoid_obstacles_2(obs))
-
-    # testing hypothesis in code module allow you to print info aiding finding out issues
-    # test_js_avoid_obstacles()
-
-
-#    lst = ["aba",  "abb",  "bbb"]
-#    string_rearrangement(lst)
-
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# assert extract_each_kth_2 (inputArray, 3) == [1, 2, 4, 5, 7, 8, 10]
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# assert extract_each_kth_3 (inputArray, 3) == [1, 2, 4, 5, 7, 8, 10]
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# print (extract_each_kth_2(inputArray, 3))
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-# print (extract_each_kth_3(inputArray, 3))
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,13, 14]
-# print (extract_each_kth_k_plus_1th_2(inputArray, 3))
-
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-# print (extract_each_kth_k_plus_1th(inputArray, 3))
-
-# inputArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]==[1, 2, 5, 8]
-
-if __name__ == "__main__":
-    main()
